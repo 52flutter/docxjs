@@ -18,6 +18,8 @@ export interface Options {
 	renderEndnotes: boolean;
     ignoreLastRenderedPageBreak: boolean;
 	useBase64URL: boolean;
+	useMathMLPolyfill: boolean;
+	renderChanges: boolean;
 }
 
 export const defaultOptions: Options = {
@@ -35,7 +37,9 @@ export const defaultOptions: Options = {
     renderFooters: true,
     renderFootnotes: true,
 	renderEndnotes: true,
-	useBase64URL: false
+	useBase64URL: false,
+	useMathMLPolyfill: false,
+	renderChanges: false
 }
 
 export function praseAsync(data: Blob | any, userOptions: Partial<Options> = null): Promise<any>  {

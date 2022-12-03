@@ -17,7 +17,8 @@ function buildConfig(prod) {
       path: PATHS.build,
       filename: outputFilename,
       library: 'docx',
-      libraryTarget: 'umd'
+      libraryTarget: 'umd',
+      globalObject: 'globalThis'
     },
     devtool: 'source-map',
     module: {
@@ -27,7 +28,14 @@ function buildConfig(prod) {
           use: [{
             loader: 'ts-loader'
           }]
-        }
+        },
+        {
+          test: /\.s[ac]ss$/i,
+          use: [
+            { loader: "css-loader", options: { exportType: "string" } },
+            { loader: "sass-loader" },
+          ],
+        },
       ]
     },
     resolve: {

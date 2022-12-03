@@ -4,10 +4,11 @@ export const ns = {
     wordml: "http://schemas.openxmlformats.org/wordprocessingml/2006/main",
     drawingml: "http://schemas.openxmlformats.org/drawingml/2006/main",
     picture: "http://schemas.openxmlformats.org/drawingml/2006/picture",
-	compatibility: "http://schemas.openxmlformats.org/markup-compatibility/2006"
+	compatibility: "http://schemas.openxmlformats.org/markup-compatibility/2006",
+	math: "http://schemas.openxmlformats.org/officeDocument/2006/math"
 }
 
-export type LengthType = "px" | "pt" | "%";
+export type LengthType = "px" | "pt" | "%" | "";
 export type Length = string;
 
 export interface Font {
@@ -29,7 +30,8 @@ export const LengthUsage: Record<string, LengthUsageType> = {
     Border: { mul: 0.125, unit: "pt" },
     Point: { mul: 1, unit: "pt" },
     Percent: { mul: 0.02, unit: "%" },
-    LineHeight: { mul: 1 / 240, unit: null }
+    LineHeight: { mul: 1 / 240, unit: "" },
+    VmlEmu: { mul: 1 / 12700, unit: "" },
 }
 
 export function convertLength(val: string, usage: LengthUsageType = LengthUsage.Dxa): string {
@@ -38,7 +40,7 @@ export function convertLength(val: string, usage: LengthUsageType = LengthUsage.
         return val;
     }
 
-	return `${(parseInt(val) * usage.mul).toFixed(2)}${usage.unit ?? ''}`;
+	return `${(parseInt(val) * usage.mul).toFixed(2)}${usage.unit}`;
 }
 
 export function convertBoolean(v: string, defaultValue = false): boolean {

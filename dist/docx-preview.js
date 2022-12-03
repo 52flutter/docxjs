@@ -7,10 +7,221 @@
 		exports["docx"] = factory(require("jszip"));
 	else
 		root["docx"] = factory(root["JSZip"]);
-})(self, function(__WEBPACK_EXTERNAL_MODULE_jszip__) {
+})(globalThis, (__WEBPACK_EXTERNAL_MODULE_jszip__) => {
 return /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
+
+/***/ "./src/mathml.scss":
+/*!*************************!*\
+  !*** ./src/mathml.scss ***!
+  \*************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/sourceMaps.js */ "./node_modules/css-loader/dist/runtime/sourceMaps.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/getUrl.js */ "./node_modules/css-loader/dist/runtime/getUrl.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_2__);
+// Imports
+
+
+
+var ___CSS_LOADER_URL_IMPORT_0___ = new URL(/* asset import */ __webpack_require__(/*! data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 20 100%27 preserveAspectRatio=%27none%27%3E%3Cpath d=%27m0,75 l5,0 l5,25 l10,-100%27 stroke=%27black%27 fill=%27none%27 vector-effect=%27non-scaling-stroke%27/%3E%3C/svg%3E */ "data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 20 100%27 preserveAspectRatio=%27none%27%3E%3Cpath d=%27m0,75 l5,0 l5,25 l10,-100%27 stroke=%27black%27 fill=%27none%27 vector-effect=%27non-scaling-stroke%27/%3E%3C/svg%3E"), __webpack_require__.b);
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
+var ___CSS_LOADER_URL_REPLACEMENT_0___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_2___default()(___CSS_LOADER_URL_IMPORT_0___);
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "@namespace \"http://www.w3.org/1998/Math/MathML\";\nmath {\n  display: inline-block;\n  line-height: initial;\n}\n\nmfrac {\n  display: inline-block;\n  vertical-align: -50%;\n  text-align: center;\n}\nmfrac > :first-child {\n  border-bottom: solid thin currentColor;\n}\nmfrac > * {\n  display: block;\n}\n\nmsub > :nth-child(2) {\n  font-size: smaller;\n  vertical-align: sub;\n}\n\nmsup > :nth-child(2) {\n  font-size: smaller;\n  vertical-align: super;\n}\n\nmunder, mover, munderover {\n  display: inline-flex;\n  flex-flow: column nowrap;\n  vertical-align: middle;\n  text-align: center;\n}\nmunder > :not(:first-child), mover > :not(:first-child), munderover > :not(:first-child) {\n  font-size: smaller;\n}\n\nmunderover > :last-child {\n  order: -1;\n}\n\nmroot, msqrt {\n  position: relative;\n  display: inline-block;\n  border-top: solid thin currentColor;\n  margin-top: 0.5px;\n  vertical-align: middle;\n  margin-left: 1ch;\n}\nmroot:before, msqrt:before {\n  content: \"\";\n  display: inline-block;\n  position: absolute;\n  width: 1ch;\n  left: -1ch;\n  top: -1px;\n  bottom: 0;\n  background-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ");\n}", "",{"version":3,"sources":["webpack://./src/mathml.scss"],"names":[],"mappings":"AAAA,+CAAA;AAEA;EACI,qBAAA;EACA,oBAAA;AAAJ;;AAGA;EACI,qBAAA;EACA,oBAAA;EACA,kBAAA;AAAJ;AAEI;EACI,sCAAA;AAAR;AAGI;EACI,cAAA;AADR;;AAMI;EACI,kBAAA;EACA,mBAAA;AAHR;;AAQI;EACI,kBAAA;EACA,qBAAA;AALR;;AASA;EACI,oBAAA;EACA,wBAAA;EACA,sBAAA;EACA,kBAAA;AANJ;AAQI;EACI,kBAAA;AANR;;AAWI;EAAgB,SAAA;AAPpB;;AAUA;EACI,kBAAA;EACA,qBAAA;EACA,mCAAA;EACA,iBAAA;EACA,sBAAA;EACA,gBAAA;AAPJ;AASI;EACI,WAAA;EACA,qBAAA;EACA,kBAAA;EACA,UAAA;EACA,UAAA;EACA,SAAA;EACA,SAAA;EACA,yDAAA;AAPR","sourcesContent":["@namespace \"http://www.w3.org/1998/Math/MathML\";\r\n\r\nmath {\r\n    display: inline-block;\r\n    line-height: initial;\r\n}\r\n\r\nmfrac {\r\n    display: inline-block;\r\n    vertical-align: -50%;\r\n    text-align: center;\r\n\r\n    &>:first-child {\r\n        border-bottom: solid thin currentColor;\r\n    }\r\n\r\n    &>* {\r\n        display: block;\r\n    }\r\n}\r\n\r\nmsub {\r\n    &>:nth-child(2) {\r\n        font-size: smaller;\r\n        vertical-align: sub;\r\n    }\r\n}\r\n\r\nmsup {\r\n    &>:nth-child(2) {\r\n        font-size: smaller;\r\n        vertical-align: super;\r\n    }\r\n}\r\n\r\nmunder, mover, munderover {\r\n    display: inline-flex;\r\n    flex-flow: column nowrap;\r\n    vertical-align: middle;\r\n    text-align: center;\r\n\r\n    &>:not(:first-child) {\r\n        font-size: smaller;\r\n    }\r\n}\r\n\r\nmunderover {\r\n    &>:last-child { order: -1; }\r\n}\r\n\r\nmroot, msqrt {\r\n    position: relative;\r\n    display: inline-block;\r\n    border-top: solid thin currentColor;  \r\n    margin-top: 0.5px;\r\n    vertical-align: middle;  \r\n    margin-left: 1ch; \r\n\r\n    &:before {\r\n        content: \"\";\r\n        display: inline-block;\r\n        position: absolute;\r\n        width: 1ch;\r\n        left: -1ch;\r\n        top: -1px;\r\n        bottom: 0;\r\n        background-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 100' preserveAspectRatio='none'%3E%3Cpath d='m0,75 l5,0 l5,25 l10,-100' stroke='black' fill='none' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E\");\r\n    }\r\n}"],"sourceRoot":""}]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___.toString());
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/runtime/api.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/css-loader/dist/runtime/api.js ***!
+  \*****************************************************/
+/***/ ((module) => {
+
+
+
+/*
+  MIT License http://www.opensource.org/licenses/mit-license.php
+  Author Tobias Koppers @sokra
+*/
+module.exports = function (cssWithMappingToString) {
+  var list = []; // return the list of modules as css string
+
+  list.toString = function toString() {
+    return this.map(function (item) {
+      var content = "";
+      var needLayer = typeof item[5] !== "undefined";
+
+      if (item[4]) {
+        content += "@supports (".concat(item[4], ") {");
+      }
+
+      if (item[2]) {
+        content += "@media ".concat(item[2], " {");
+      }
+
+      if (needLayer) {
+        content += "@layer".concat(item[5].length > 0 ? " ".concat(item[5]) : "", " {");
+      }
+
+      content += cssWithMappingToString(item);
+
+      if (needLayer) {
+        content += "}";
+      }
+
+      if (item[2]) {
+        content += "}";
+      }
+
+      if (item[4]) {
+        content += "}";
+      }
+
+      return content;
+    }).join("");
+  }; // import a list of modules into the list
+
+
+  list.i = function i(modules, media, dedupe, supports, layer) {
+    if (typeof modules === "string") {
+      modules = [[null, modules, undefined]];
+    }
+
+    var alreadyImportedModules = {};
+
+    if (dedupe) {
+      for (var k = 0; k < this.length; k++) {
+        var id = this[k][0];
+
+        if (id != null) {
+          alreadyImportedModules[id] = true;
+        }
+      }
+    }
+
+    for (var _k = 0; _k < modules.length; _k++) {
+      var item = [].concat(modules[_k]);
+
+      if (dedupe && alreadyImportedModules[item[0]]) {
+        continue;
+      }
+
+      if (typeof layer !== "undefined") {
+        if (typeof item[5] === "undefined") {
+          item[5] = layer;
+        } else {
+          item[1] = "@layer".concat(item[5].length > 0 ? " ".concat(item[5]) : "", " {").concat(item[1], "}");
+          item[5] = layer;
+        }
+      }
+
+      if (media) {
+        if (!item[2]) {
+          item[2] = media;
+        } else {
+          item[1] = "@media ".concat(item[2], " {").concat(item[1], "}");
+          item[2] = media;
+        }
+      }
+
+      if (supports) {
+        if (!item[4]) {
+          item[4] = "".concat(supports);
+        } else {
+          item[1] = "@supports (".concat(item[4], ") {").concat(item[1], "}");
+          item[4] = supports;
+        }
+      }
+
+      list.push(item);
+    }
+  };
+
+  return list;
+};
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/runtime/getUrl.js":
+/*!********************************************************!*\
+  !*** ./node_modules/css-loader/dist/runtime/getUrl.js ***!
+  \********************************************************/
+/***/ ((module) => {
+
+
+
+module.exports = function (url, options) {
+  if (!options) {
+    options = {};
+  }
+
+  if (!url) {
+    return url;
+  }
+
+  url = String(url.__esModule ? url.default : url); // If url is already wrapped in quotes, remove them
+
+  if (/^['"].*['"]$/.test(url)) {
+    url = url.slice(1, -1);
+  }
+
+  if (options.hash) {
+    url += options.hash;
+  } // Should url be wrapped?
+  // See https://drafts.csswg.org/css-values-3/#urls
+
+
+  if (/["'() \t\n]|(%20)/.test(url) || options.needQuotes) {
+    return "\"".concat(url.replace(/"/g, '\\"').replace(/\n/g, "\\n"), "\"");
+  }
+
+  return url;
+};
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/runtime/sourceMaps.js":
+/*!************************************************************!*\
+  !*** ./node_modules/css-loader/dist/runtime/sourceMaps.js ***!
+  \************************************************************/
+/***/ ((module) => {
+
+
+
+module.exports = function (item) {
+  var content = item[1];
+  var cssMapping = item[3];
+
+  if (!cssMapping) {
+    return content;
+  }
+
+  if (typeof btoa === "function") {
+    var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(cssMapping))));
+    var data = "sourceMappingURL=data:application/json;charset=utf-8;base64,".concat(base64);
+    var sourceMapping = "/*# ".concat(data, " */");
+    var sourceURLs = cssMapping.sources.map(function (source) {
+      return "/*# sourceURL=".concat(cssMapping.sourceRoot || "").concat(source, " */");
+    });
+    return [content].concat(sourceURLs).concat([sourceMapping]).join("\n");
+  }
+
+  return [content].join("\n");
+};
+
+/***/ }),
 
 /***/ "./src/common/open-xml-package.ts":
 /*!****************************************!*\
@@ -166,11 +377,29 @@ const xml_parser_1 = __webpack_require__(/*! ./parser/xml-parser */ "./src/parse
 const run_1 = __webpack_require__(/*! ./document/run */ "./src/document/run.ts");
 const bookmarks_1 = __webpack_require__(/*! ./document/bookmarks */ "./src/document/bookmarks.ts");
 const common_1 = __webpack_require__(/*! ./document/common */ "./src/document/common.ts");
+const vml_1 = __webpack_require__(/*! ./vml/vml */ "./src/vml/vml.ts");
 exports.autos = {
     shd: "inherit",
     color: "black",
     borderColor: "black",
     highlight: "transparent"
+};
+const supportedNamespaceURIs = [];
+const mmlTagMap = {
+    "oMath": dom_1.DomType.MmlMath,
+    "oMathPara": dom_1.DomType.MmlMathParagraph,
+    "f": dom_1.DomType.MmlFraction,
+    "num": dom_1.DomType.MmlNumerator,
+    "den": dom_1.DomType.MmlDenominator,
+    "rad": dom_1.DomType.MmlRadical,
+    "deg": dom_1.DomType.MmlDegree,
+    "e": dom_1.DomType.MmlBase,
+    "sSup": dom_1.DomType.MmlSuperscript,
+    "sSub": dom_1.DomType.MmlSubscript,
+    "sup": dom_1.DomType.MmlSuperArgument,
+    "sub": dom_1.DomType.MmlSubArgument,
+    "d": dom_1.DomType.MmlDelimiter,
+    "nary": dom_1.DomType.MmlNary
 };
 class DocumentParser {
     constructor(options) {
@@ -208,7 +437,7 @@ class DocumentParser {
     }
     parseBodyElements(element) {
         var children = [];
-        xmlUtil.foreach(element, elem => {
+        for (let elem of xml_parser_1.default.elements(element)) {
             switch (elem.localName) {
                 case "p":
                     children.push(this.parseParagraph(elem));
@@ -217,10 +446,10 @@ class DocumentParser {
                     children.push(this.parseTable(elem));
                     break;
                 case "sdt":
-                    this.parseSdt(elem).forEach(el => children.push(el));
+                    children.push(...this.parseSdt(elem, e => this.parseBodyElements(e)));
                     break;
             }
-        });
+        }
         return children;
     }
     parseStylesFile(xstyles) {
@@ -494,31 +723,58 @@ class DocumentParser {
         });
         return result;
     }
-    parseSdt(node) {
+    parseSdt(node, parser) {
         const sdtContent = xml_parser_1.default.element(node, "sdtContent");
-        return sdtContent ? this.parseBodyElements(sdtContent) : [];
+        return sdtContent ? parser(sdtContent) : [];
+    }
+    parseInserted(node, parentParser) {
+        var _a, _b;
+        return {
+            type: dom_1.DomType.Inserted,
+            children: (_b = (_a = parentParser(node)) === null || _a === void 0 ? void 0 : _a.children) !== null && _b !== void 0 ? _b : []
+        };
+    }
+    parseDeleted(node, parentParser) {
+        var _a, _b;
+        return {
+            type: dom_1.DomType.Deleted,
+            children: (_b = (_a = parentParser(node)) === null || _a === void 0 ? void 0 : _a.children) !== null && _b !== void 0 ? _b : []
+        };
     }
     parseParagraph(node) {
         var result = { type: dom_1.DomType.Paragraph, children: [] };
-        xmlUtil.foreach(node, c => {
-            switch (c.localName) {
+        for (let el of xml_parser_1.default.elements(node)) {
+            switch (el.localName) {
+                case "pPr":
+                    this.parseParagraphProperties(el, result);
+                    break;
                 case "r":
-                    result.children.push(this.parseRun(c, result));
+                    result.children.push(this.parseRun(el, result));
                     break;
                 case "hyperlink":
-                    result.children.push(this.parseHyperlink(c, result));
+                    result.children.push(this.parseHyperlink(el, result));
                     break;
                 case "bookmarkStart":
-                    result.children.push((0, bookmarks_1.parseBookmarkStart)(c, xml_parser_1.default));
+                    result.children.push((0, bookmarks_1.parseBookmarkStart)(el, xml_parser_1.default));
                     break;
                 case "bookmarkEnd":
-                    result.children.push((0, bookmarks_1.parseBookmarkEnd)(c, xml_parser_1.default));
+                    result.children.push((0, bookmarks_1.parseBookmarkEnd)(el, xml_parser_1.default));
                     break;
-                case "pPr":
-                    this.parseParagraphProperties(c, result);
+                case "oMath":
+                case "oMathPara":
+                    result.children.push(this.parseMathElement(el));
+                    break;
+                case "sdt":
+                    result.children.push(...this.parseSdt(el, e => this.parseParagraph(e).children));
+                    break;
+                case "ins":
+                    result.children.push(this.parseInserted(el, e => this.parseParagraph(e)));
+                    break;
+                case "del":
+                    result.children.push(this.parseDeleted(el, e => this.parseParagraph(e)));
                     break;
             }
-        });
+        }
         return result;
     }
     parseParagraphProperties(elem, paragraph) {
@@ -551,8 +807,11 @@ class DocumentParser {
     parseHyperlink(node, parent) {
         var result = { type: dom_1.DomType.Hyperlink, parent: parent, children: [] };
         var anchor = xml_parser_1.default.attr(node, "anchor");
+        var relId = xml_parser_1.default.attr(node, "id");
         if (anchor)
             result.href = "#" + anchor;
+        if (relId)
+            result.id = relId;
         xmlUtil.foreach(node, c => {
             switch (c.localName) {
                 case "r":
@@ -565,10 +824,17 @@ class DocumentParser {
     parseRun(node, parent) {
         var result = { type: dom_1.DomType.Run, parent: parent, children: [] };
         xmlUtil.foreach(node, c => {
+            c = this.checkAlternateContent(c);
             switch (c.localName) {
                 case "t":
                     result.children.push({
                         type: dom_1.DomType.Text,
+                        text: c.textContent
+                    });
+                    break;
+                case "delText":
+                    result.children.push({
+                        type: dom_1.DomType.DeletedText,
                         text: c.textContent
                     });
                     break;
@@ -638,11 +904,51 @@ class DocumentParser {
                     if (d)
                         result.children = [d];
                     break;
+                case "pict":
+                    result.children.push(this.parseVmlPicture(c));
+                    break;
                 case "rPr":
                     this.parseRunProperties(c, result);
                     break;
             }
         });
+        return result;
+    }
+    parseMathElement(elem) {
+        const propsTag = `${elem.localName}Pr`;
+        const result = { type: mmlTagMap[elem.localName], children: [] };
+        for (const el of xml_parser_1.default.elements(elem)) {
+            const childType = mmlTagMap[el.localName];
+            if (childType) {
+                result.children.push(this.parseMathElement(el));
+            }
+            else if (el.localName == "r") {
+                result.children.push(this.parseRun(el));
+            }
+            else if (el.localName == propsTag) {
+                result.props = this.parseMathProperies(el);
+            }
+        }
+        return result;
+    }
+    parseMathProperies(elem) {
+        const result = {};
+        for (const el of xml_parser_1.default.elements(elem)) {
+            switch (el.localName) {
+                case "chr":
+                    result.char = xml_parser_1.default.attr(el, "val");
+                    break;
+                case "degHide":
+                    result.hideDegree = xml_parser_1.default.boolAttr(el, "val");
+                    break;
+                case "begChr":
+                    result.beginChar = xml_parser_1.default.attr(el, "val");
+                    break;
+                case "endChr":
+                    result.endChar = xml_parser_1.default.attr(el, "val");
+                    break;
+            }
+        }
         return result;
     }
     parseRunProperties(elem, run) {
@@ -659,6 +965,27 @@ class DocumentParser {
             }
             return true;
         });
+    }
+    parseVmlPicture(elem) {
+        const result = { type: dom_1.DomType.VmlPicture, children: [] };
+        for (const el of xml_parser_1.default.elements(elem)) {
+            const child = (0, vml_1.parseVmlElement)(el);
+            child && result.children.push(child);
+        }
+        return result;
+    }
+    checkAlternateContent(elem) {
+        var _a;
+        if (elem.localName != 'AlternateContent')
+            return elem;
+        var choice = xml_parser_1.default.element(elem, "Choice");
+        if (choice) {
+            var requires = xml_parser_1.default.attr(choice, "Requires");
+            var namespaceURI = elem.lookupNamespaceURI(requires);
+            if (supportedNamespaceURIs.includes(namespaceURI))
+                return choice.firstElementChild;
+        }
+        return (_a = xml_parser_1.default.element(elem, "Fallback")) === null || _a === void 0 ? void 0 : _a.firstElementChild;
     }
     parseDrawing(node) {
         for (var n of xml_parser_1.default.elements(node)) {
@@ -1586,7 +1913,8 @@ exports.ns = {
     wordml: "http://schemas.openxmlformats.org/wordprocessingml/2006/main",
     drawingml: "http://schemas.openxmlformats.org/drawingml/2006/main",
     picture: "http://schemas.openxmlformats.org/drawingml/2006/picture",
-    compatibility: "http://schemas.openxmlformats.org/markup-compatibility/2006"
+    compatibility: "http://schemas.openxmlformats.org/markup-compatibility/2006",
+    math: "http://schemas.openxmlformats.org/officeDocument/2006/math"
 };
 exports.LengthUsage = {
     Dxa: { mul: 0.05, unit: "pt" },
@@ -1595,14 +1923,14 @@ exports.LengthUsage = {
     Border: { mul: 0.125, unit: "pt" },
     Point: { mul: 1, unit: "pt" },
     Percent: { mul: 0.02, unit: "%" },
-    LineHeight: { mul: 1 / 240, unit: null }
+    LineHeight: { mul: 1 / 240, unit: "" },
+    VmlEmu: { mul: 1 / 12700, unit: "" },
 };
 function convertLength(val, usage = exports.LengthUsage.Dxa) {
-    var _a;
     if (val == null || /.+(p[xt]|[%])$/.test(val)) {
         return val;
     }
-    return `${(parseInt(val) * usage.mul).toFixed(2)}${(_a = usage.unit) !== null && _a !== void 0 ? _a : ''}`;
+    return `${(parseInt(val) * usage.mul).toFixed(2)}${usage.unit}`;
 }
 exports.convertLength = convertLength;
 function convertBoolean(v, defaultValue = false) {
@@ -1701,6 +2029,25 @@ var DomType;
     DomType["SimpleField"] = "simpleField";
     DomType["ComplexField"] = "complexField";
     DomType["Instruction"] = "instruction";
+    DomType["VmlPicture"] = "vmlPicture";
+    DomType["MmlMath"] = "mmlMath";
+    DomType["MmlMathParagraph"] = "mmlMathParagraph";
+    DomType["MmlFraction"] = "mmlFraction";
+    DomType["MmlNumerator"] = "mmlNumerator";
+    DomType["MmlDenominator"] = "mmlDenominator";
+    DomType["MmlRadical"] = "mmlRadical";
+    DomType["MmlBase"] = "mmlBase";
+    DomType["MmlDegree"] = "mmlDegree";
+    DomType["MmlSuperscript"] = "mmlSuperscript";
+    DomType["MmlSubscript"] = "mmlSubscript";
+    DomType["MmlSubArgument"] = "mmlSubArgument";
+    DomType["MmlSuperArgument"] = "mmlSuperArgument";
+    DomType["MmlNary"] = "mmlNary";
+    DomType["MmlDelimiter"] = "mmlDelimiter";
+    DomType["VmlElement"] = "vmlElement";
+    DomType["Inserted"] = "inserted";
+    DomType["Deleted"] = "deleted";
+    DomType["DeletedText"] = "deletedText";
 })(DomType = exports.DomType || (exports.DomType = {}));
 
 
@@ -1978,7 +2325,9 @@ exports.defaultOptions = {
     renderFooters: true,
     renderFootnotes: true,
     renderEndnotes: true,
-    useBase64URL: false
+    useBase64URL: false,
+    useMathMLPolyfill: false,
+    renderChanges: false
 };
 function praseAsync(data, userOptions = null) {
     const ops = Object.assign(Object.assign({}, exports.defaultOptions), userOptions);
@@ -2156,6 +2505,11 @@ exports.HtmlRenderer = void 0;
 const dom_1 = __webpack_require__(/*! ./document/dom */ "./src/document/dom.ts");
 const utils_1 = __webpack_require__(/*! ./utils */ "./src/utils.ts");
 const javascript_1 = __webpack_require__(/*! ./javascript */ "./src/javascript.ts");
+const mathml_scss_1 = __webpack_require__(/*! ./mathml.scss */ "./src/mathml.scss");
+const ns = {
+    svg: "http://www.w3.org/2000/svg",
+    mathML: "http://www.w3.org/1998/Math/MathML"
+};
 class HtmlRenderer {
     constructor(htmlDocument) {
         this.htmlDocument = htmlDocument;
@@ -2179,12 +2533,17 @@ class HtmlRenderer {
         this.document = document;
         this.options = options;
         this.className = options.className;
+        this.rootSelector = options.inWrapper ? `.${this.className}-wrapper` : ':root';
         this.styleMap = null;
         styleContainer = styleContainer || bodyContainer;
         removeAllElements(styleContainer);
         removeAllElements(bodyContainer);
         appendComment(styleContainer, "docxjs library predefined styles");
         styleContainer.appendChild(this.renderDefaultStyle());
+        if (!window.MathMLElement && options.useMathMLPolyfill) {
+            appendComment(styleContainer, "docxjs mathml polyfill styles");
+            styleContainer.appendChild(createStyleElement(mathml_scss_1.default));
+        }
         if (document.themePart) {
             appendComment(styleContainer, "docxjs document theme values");
             this.renderTheme(document.themePart, styleContainer);
@@ -2504,7 +2863,7 @@ section.${c}>article { margin-bottom: auto; }
                     "background": `var(${valiable})`
                 }, num.bullet.style);
                 this.document.loadNumberingImage(num.bullet.src).then(data => {
-                    var text = `.${this.className}-wrapper { ${valiable}: url(${data}) }`;
+                    var text = `${this.rootSelector} { ${valiable}: url(${data}) }`;
                     styleContainer.appendChild(createStyleElement(text));
                 });
             }
@@ -2526,7 +2885,7 @@ section.${c}>article { margin-bottom: auto; }
             styleText += this.styleToString(selector, Object.assign({ "display": "list-item", "list-style-position": "inside", "list-style-type": listStyleType }, num.pStyle));
         }
         if (rootCounters.length > 0) {
-            styleText += this.styleToString(`.${this.className}-wrapper`, {
+            styleText += this.styleToString(this.rootSelector, {
                 "counter-reset": rootCounters.join(" ")
             });
         }
@@ -2588,6 +2947,10 @@ section.${c}>article { margin-bottom: auto; }
                 return this.renderImage(elem);
             case dom_1.DomType.Text:
                 return this.renderText(elem);
+            case dom_1.DomType.Text:
+                return this.renderText(elem);
+            case dom_1.DomType.DeletedText:
+                return this.renderDeletedText(elem);
             case dom_1.DomType.Tab:
                 return this.renderTab(elem);
             case dom_1.DomType.Symbol:
@@ -2607,6 +2970,41 @@ section.${c}>article { margin-bottom: auto; }
                 return this.renderEndnoteReference(elem);
             case dom_1.DomType.NoBreakHyphen:
                 return this.createElement("wbr");
+            case dom_1.DomType.VmlPicture:
+                return this.renderVmlPicture(elem);
+            case dom_1.DomType.VmlElement:
+                return this.renderVmlElement(elem);
+            case dom_1.DomType.MmlMath:
+                return this.renderContainerNS(elem, ns.mathML, "math", { xmlns: ns.mathML });
+            case dom_1.DomType.MmlMathParagraph:
+                return this.renderContainer(elem, "span");
+            case dom_1.DomType.MmlFraction:
+                return this.renderContainerNS(elem, ns.mathML, "mfrac");
+            case dom_1.DomType.MmlNumerator:
+            case dom_1.DomType.MmlDenominator:
+                return this.renderContainerNS(elem, ns.mathML, "mrow");
+            case dom_1.DomType.MmlRadical:
+                return this.renderMmlRadical(elem);
+            case dom_1.DomType.MmlDegree:
+                return this.renderContainerNS(elem, ns.mathML, "mn");
+            case dom_1.DomType.MmlSuperscript:
+                return this.renderContainerNS(elem, ns.mathML, "msup");
+            case dom_1.DomType.MmlSubscript:
+                return this.renderContainerNS(elem, ns.mathML, "msub");
+            case dom_1.DomType.MmlBase:
+                return this.renderContainerNS(elem, ns.mathML, "mrow");
+            case dom_1.DomType.MmlSuperArgument:
+                return this.renderContainerNS(elem, ns.mathML, "mn");
+            case dom_1.DomType.MmlSubArgument:
+                return this.renderContainerNS(elem, ns.mathML, "mn");
+            case dom_1.DomType.MmlDelimiter:
+                return this.renderMmlDelimiter(elem);
+            case dom_1.DomType.MmlNary:
+                return this.renderMmlNary(elem);
+            case dom_1.DomType.Inserted:
+                return this.renderInserted(elem);
+            case dom_1.DomType.Deleted:
+                return this.renderDeleted(elem);
         }
         return null;
     }
@@ -2616,13 +3014,16 @@ section.${c}>article { margin-bottom: auto; }
     renderElements(elems, into) {
         if (elems == null)
             return null;
-        var result = elems.map(e => this.renderElement(e)).filter(e => e != null);
+        var result = elems.flatMap(e => this.renderElement(e)).filter(e => e != null);
         if (into)
             appendChildren(into, result);
         return result;
     }
-    renderContainer(elem, tagName) {
-        return this.createElement(tagName, null, this.renderChildren(elem));
+    renderContainer(elem, tagName, props) {
+        return this.createElement(tagName, props, this.renderChildren(elem));
+    }
+    renderContainerNS(elem, ns, tagName, props) {
+        return createElementNS(ns, tagName, props, this.renderChildren(elem));
     }
     renderParagraph(elem) {
         var _a, _b, _c, _d;
@@ -2656,8 +3057,14 @@ section.${c}>article { margin-bottom: auto; }
         var result = this.createElement("a");
         this.renderChildren(elem, result);
         this.renderStyleValues(elem.cssStyle, result);
-        if (elem.href)
+        if (elem.href) {
             result.href = elem.href;
+        }
+        else if (elem.id) {
+            const rel = this.document.documentPart.rels
+                .find(it => it.id == elem.id && it.targetMode === "External");
+            result.href = rel === null || rel === void 0 ? void 0 : rel.target;
+        }
         return result;
     }
     renderDrawing(elem) {
@@ -2682,10 +3089,23 @@ section.${c}>article { margin-bottom: auto; }
     renderText(elem) {
         return this.htmlDocument.createTextNode(elem.text);
     }
+    renderDeletedText(elem) {
+        return this.options.renderEndnotes ? this.htmlDocument.createTextNode(elem.text) : null;
+    }
     renderBreak(elem) {
         if (elem.break == "textWrapping") {
             return this.createElement("br");
         }
+        return null;
+    }
+    renderInserted(elem) {
+        if (this.options.renderChanges)
+            return this.renderContainer(elem, "ins");
+        return this.renderChildren(elem);
+    }
+    renderDeleted(elem) {
+        if (this.options.renderChanges)
+            return this.renderContainer(elem, "del");
         return null;
     }
     renderSymbol(elem) {
@@ -2776,8 +3196,8 @@ section.${c}>article { margin-bottom: auto; }
     }
     renderTableCell(elem) {
         let result = this.createElement("td");
+        const key = this.currentCellPosition.col;
         if (elem.verticalMerge) {
-            const key = this.currentCellPosition.col;
             if (elem.verticalMerge == "restart") {
                 this.currentVerticalMerge[key] = result;
                 result.rowSpan = 1;
@@ -2787,13 +3207,81 @@ section.${c}>article { margin-bottom: auto; }
                 result.style.display = "none";
             }
         }
+        else {
+            this.currentVerticalMerge[key] = null;
+        }
         this.renderClass(elem, result);
         this.renderChildren(elem, result);
         this.renderStyleValues(elem.cssStyle, result);
         if (elem.span)
             result.colSpan = elem.span;
-        this.currentCellPosition.col++;
+        this.currentCellPosition.col += result.colSpan;
         return result;
+    }
+    renderVmlPicture(elem) {
+        var result = createElement("div");
+        this.renderChildren(elem, result);
+        return result;
+    }
+    renderVmlElement(elem) {
+        var _a, _b;
+        var container = createSvgElement("svg");
+        container.setAttribute("style", elem.cssStyleText);
+        const result = createSvgElement(elem.tagName);
+        Object.entries(elem.attrs).forEach(([k, v]) => result.setAttribute(k, v));
+        if ((_a = elem.imageHref) === null || _a === void 0 ? void 0 : _a.id) {
+            (_b = this.document) === null || _b === void 0 ? void 0 : _b.loadDocumentImage(elem.imageHref.id, this.currentPart).then(x => result.setAttribute("href", x));
+        }
+        container.appendChild(result);
+        setTimeout(() => {
+            const bb = container.firstElementChild.getBBox();
+            container.setAttribute("width", `${Math.ceil(bb.x + bb.width)}`);
+            container.setAttribute("height", `${Math.ceil(bb.y + bb.height)}`);
+        }, 0);
+        return container;
+    }
+    renderMmlRadical(elem) {
+        var _a;
+        const base = elem.children.find(el => el.type == dom_1.DomType.MmlBase);
+        if ((_a = elem.props) === null || _a === void 0 ? void 0 : _a.hideDegree) {
+            return createElementNS(ns.mathML, "msqrt", null, this.renderElements([base]));
+        }
+        const degree = elem.children.find(el => el.type == dom_1.DomType.MmlDegree);
+        return createElementNS(ns.mathML, "mroot", null, this.renderElements([base, degree]));
+    }
+    renderMmlDelimiter(elem) {
+        var _a, _b;
+        const children = [];
+        children.push(createElementNS(ns.mathML, "mo", null, [(_a = elem.props.beginChar) !== null && _a !== void 0 ? _a : '(']));
+        children.push(...this.renderElements(elem.children));
+        children.push(createElementNS(ns.mathML, "mo", null, [(_b = elem.props.endChar) !== null && _b !== void 0 ? _b : ')']));
+        return createElementNS(ns.mathML, "mrow", null, children);
+    }
+    renderMmlNary(elem) {
+        var _a;
+        const children = [];
+        const grouped = (0, utils_1.keyBy)(elem.children, x => x.type);
+        const sup = grouped[dom_1.DomType.MmlSuperArgument];
+        const sub = grouped[dom_1.DomType.MmlSubArgument];
+        const supElem = sup ? createElementNS(ns.mathML, "mo", null, (0, utils_1.asArray)(this.renderElement(sup))) : null;
+        const subElem = sub ? createElementNS(ns.mathML, "mo", null, (0, utils_1.asArray)(this.renderElement(sub))) : null;
+        if ((_a = elem.props) === null || _a === void 0 ? void 0 : _a.char) {
+            const charElem = createElementNS(ns.mathML, "mo", null, [elem.props.char]);
+            if (supElem || subElem) {
+                children.push(createElementNS(ns.mathML, "munderover", null, [charElem, subElem, supElem]));
+            }
+            else if (supElem) {
+                children.push(createElementNS(ns.mathML, "mover", null, [charElem, supElem]));
+            }
+            else if (subElem) {
+                children.push(createElementNS(ns.mathML, "munder", null, [charElem, subElem]));
+            }
+            else {
+                children.push(charElem);
+            }
+        }
+        children.push(...this.renderElements(grouped[dom_1.DomType.MmlBase].children));
+        return createElementNS(ns.mathML, "mrow", null, children);
     }
     renderStyleValues(style, ouput) {
         Object.assign(ouput.style, style);
@@ -2863,8 +3351,15 @@ section.${c}>article { margin-bottom: auto; }
     }
 }
 exports.HtmlRenderer = HtmlRenderer;
-function createElement(tagName, props = undefined, children = undefined) {
-    var result = Object.assign(document.createElement(tagName), props);
+function createElement(tagName, props, children) {
+    return createElementNS(undefined, tagName, props, children);
+}
+function createSvgElement(tagName, props, children) {
+    return createElementNS(ns.svg, tagName, props, children);
+}
+function createElementNS(ns, tagName, props, children) {
+    var result = ns ? document.createElementNS(ns, tagName) : document.createElement(tagName);
+    Object.assign(result, props);
     children && appendChildren(result, children);
     return result;
 }
@@ -2872,7 +3367,7 @@ function removeAllElements(elem) {
     elem.innerHTML = '';
 }
 function appendChildren(elem, children) {
-    children.forEach(c => elem.appendChild(c));
+    children.forEach(c => elem.appendChild((0, utils_1.isString)(c) ? document.createTextNode(c) : c));
 }
 function createStyleElement(cssText) {
     return createElement("style", { innerHTML: cssText });
@@ -3278,6 +3773,9 @@ class XmlParser {
         var el = this.element(elem, localName);
         return el ? this.attr(el, attrLocalName) : undefined;
     }
+    attrs(elem) {
+        return Array.from(elem.attributes);
+    }
     attr(elem, localName) {
         for (let i = 0, l = elem.attributes.length; i < l; i++) {
             let a = elem.attributes.item(i);
@@ -3519,7 +4017,7 @@ exports.parseFontInfo = parseFontInfo;
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.mergeDeep = exports.isObject = exports.blobToBase64 = exports.keyBy = exports.resolvePath = exports.splitPath = exports.escapeClassName = void 0;
+exports.asArray = exports.formatCssRules = exports.parseCssRules = exports.mergeDeep = exports.isString = exports.isObject = exports.blobToBase64 = exports.keyBy = exports.resolvePath = exports.splitPath = exports.escapeClassName = void 0;
 function escapeClassName(className) {
     return className === null || className === void 0 ? void 0 : className.replace(/[ .]+/g, '-').replace(/[&]+/g, 'and').toLowerCase();
 }
@@ -3558,9 +4056,13 @@ function blobToBase64(blob) {
 }
 exports.blobToBase64 = blobToBase64;
 function isObject(item) {
-    return (item && typeof item === 'object' && !Array.isArray(item));
+    return item && typeof item === 'object' && !Array.isArray(item);
 }
 exports.isObject = isObject;
+function isString(item) {
+    return item && typeof item === 'string' || item instanceof String;
+}
+exports.isString = isString;
 function mergeDeep(target, ...sources) {
     var _a;
     if (!sources.length)
@@ -3580,6 +4082,132 @@ function mergeDeep(target, ...sources) {
     return mergeDeep(target, ...sources);
 }
 exports.mergeDeep = mergeDeep;
+function parseCssRules(text) {
+    const result = {};
+    for (const rule of text.split(';')) {
+        const [key, val] = rule.split(':');
+        result[key] = val;
+    }
+    return result;
+}
+exports.parseCssRules = parseCssRules;
+function formatCssRules(style) {
+    return Object.entries(style).map((k, v) => `${k}: ${v}`).join(';');
+}
+exports.formatCssRules = formatCssRules;
+function asArray(val) {
+    return Array.isArray(val) ? val : [val];
+}
+exports.asArray = asArray;
+
+
+/***/ }),
+
+/***/ "./src/vml/vml.ts":
+/*!************************!*\
+  !*** ./src/vml/vml.ts ***!
+  \************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.parseVmlElement = exports.VmlElement = void 0;
+const common_1 = __webpack_require__(/*! ../document/common */ "./src/document/common.ts");
+const dom_1 = __webpack_require__(/*! ../document/dom */ "./src/document/dom.ts");
+const xml_parser_1 = __webpack_require__(/*! ../parser/xml-parser */ "./src/parser/xml-parser.ts");
+class VmlElement {
+    constructor() {
+        this.type = dom_1.DomType.VmlElement;
+        this.attrs = {};
+        this.chidren = [];
+    }
+}
+exports.VmlElement = VmlElement;
+function parseVmlElement(elem) {
+    var result = new VmlElement();
+    switch (elem.localName) {
+        case "rect":
+            result.tagName = "rect";
+            Object.assign(result.attrs, { width: '100%', height: '100%' });
+            break;
+        case "oval":
+            result.tagName = "ellipse";
+            Object.assign(result.attrs, { cx: "50%", cy: "50%", rx: "50%", ry: "50%" });
+            break;
+        case "line":
+            result.tagName = "line";
+            break;
+        case "shape":
+            result.tagName = "g";
+            break;
+        default:
+            return null;
+    }
+    for (const at of xml_parser_1.default.attrs(elem)) {
+        switch (at.localName) {
+            case "style":
+                result.cssStyleText = at.value;
+                break;
+            case "fillcolor":
+                result.attrs.fill = at.value;
+                break;
+            case "from":
+                const [x1, y1] = parsePoint(at.value);
+                Object.assign(result.attrs, { x1, y1 });
+                break;
+            case "to":
+                const [x2, y2] = parsePoint(at.value);
+                Object.assign(result.attrs, { x2, y2 });
+                break;
+        }
+    }
+    for (const el of xml_parser_1.default.elements(elem)) {
+        switch (el.localName) {
+            case "stroke":
+                Object.assign(result.attrs, parseStroke(el));
+                break;
+            case "fill":
+                Object.assign(result.attrs, parseFill(el));
+                break;
+            case "imagedata":
+                result.tagName = "image";
+                Object.assign(result.attrs, { width: '100%', height: '100%' });
+                result.imageHref = {
+                    id: xml_parser_1.default.attr(el, "id"),
+                    title: xml_parser_1.default.attr(el, "title"),
+                };
+                break;
+            default:
+                const child = parseVmlElement(el);
+                child && result.chidren.push(child);
+                break;
+        }
+    }
+    return result;
+}
+exports.parseVmlElement = parseVmlElement;
+function parseStroke(el) {
+    var _a;
+    return {
+        'stroke': xml_parser_1.default.attr(el, "color"),
+        'stroke-width': (_a = xml_parser_1.default.lengthAttr(el, "weight", common_1.LengthUsage.Emu)) !== null && _a !== void 0 ? _a : '1px'
+    };
+}
+function parseFill(el) {
+    return {};
+}
+function parsePoint(val) {
+    return val.split(",");
+}
+function convertPath(path) {
+    return path.replace(/([mlxe])|([-\d]+)|([,])/g, (m) => {
+        if (/[-\d]/.test(m))
+            return (0, common_1.convertLength)(m, common_1.LengthUsage.VmlEmu);
+        if (/[ml,]/.test(m))
+            return m;
+        return '';
+    });
+}
 
 
 /***/ }),
@@ -3752,6 +4380,16 @@ exports.deobfuscate = deobfuscate;
 
 /***/ }),
 
+/***/ "data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 20 100%27 preserveAspectRatio=%27none%27%3E%3Cpath d=%27m0,75 l5,0 l5,25 l10,-100%27 stroke=%27black%27 fill=%27none%27 vector-effect=%27non-scaling-stroke%27/%3E%3C/svg%3E":
+/*!********************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 20 100%27 preserveAspectRatio=%27none%27%3E%3Cpath d=%27m0,75 l5,0 l5,25 l10,-100%27 stroke=%27black%27 fill=%27none%27 vector-effect=%27non-scaling-stroke%27/%3E%3C/svg%3E ***!
+  \********************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module) => {
+
+module.exports = "data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 20 100%27 preserveAspectRatio=%27none%27%3E%3Cpath d=%27m0,75 l5,0 l5,25 l10,-100%27 stroke=%27black%27 fill=%27none%27 vector-effect=%27non-scaling-stroke%27/%3E%3C/svg%3E";
+
+/***/ }),
+
 /***/ "jszip":
 /*!**************************************************************************************!*\
   !*** external {"root":"JSZip","commonjs":"jszip","commonjs2":"jszip","amd":"jszip"} ***!
@@ -3776,7 +4414,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_jszip__;
 /******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = __webpack_module_cache__[moduleId] = {
-/******/ 			// no module.id needed
+/******/ 			id: moduleId,
 /******/ 			// no module.loaded needed
 /******/ 			exports: {}
 /******/ 		};
@@ -3787,6 +4425,76 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_jszip__;
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
+/******/ 	
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = __webpack_modules__;
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/jsonp chunk loading */
+/******/ 	(() => {
+/******/ 		__webpack_require__.b = document.baseURI || self.location.href;
+/******/ 		
+/******/ 		// object to store loaded and loading chunks
+/******/ 		// undefined = chunk not loaded, null = chunk preloaded/prefetched
+/******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
+/******/ 		var installedChunks = {
+/******/ 			"docx-preview": 0
+/******/ 		};
+/******/ 		
+/******/ 		// no chunk on demand loading
+/******/ 		
+/******/ 		// no prefetching
+/******/ 		
+/******/ 		// no preloaded
+/******/ 		
+/******/ 		// no HMR
+/******/ 		
+/******/ 		// no HMR manifest
+/******/ 		
+/******/ 		// no on chunks loaded
+/******/ 		
+/******/ 		// no jsonp function
+/******/ 	})();
 /******/ 	
 /************************************************************************/
 /******/ 	
