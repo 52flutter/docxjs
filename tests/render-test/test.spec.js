@@ -1,6 +1,7 @@
 describe("Render document", function () {
   const tests = [
     'text',
+    'underlines',
     'text-break',
     'table',
     'page-layout',
@@ -8,7 +9,8 @@ describe("Render document", function () {
     'numbering',
     'line-spacing',
     'header-footer',
-    'footnote'
+    'footnote',
+    'equation'
   ];
 
   for (let path of tests) {
@@ -26,7 +28,7 @@ describe("Render document", function () {
       const actual = formatHTML(div.innerHTML);
       const expected = formatHTML(resultText);
 
-      expect(actual == expected).toBeTrue();
+      expect(actual).toBe(expected);
 
       if(actual != expected) {
         const diffs = Diff.diffLines(expected, actual);

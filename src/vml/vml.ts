@@ -1,14 +1,14 @@
+import { DocumentParser } from '../document-parser';
 import { convertLength, LengthUsage } from '../document/common';
-import { DomType, OpenXmlElement } from '../document/dom';
+import { OpenXmlElementBase, DomType } from '../document/dom';
 import xml from '../parser/xml-parser';
 import { formatCssRules, parseCssRules } from '../utils';
 
-export class VmlElement implements OpenXmlElement {
+export class VmlElement extends OpenXmlElementBase {
 	type: DomType = DomType.VmlElement;
 	tagName: string;
 	cssStyleText?: string;
 	attrs: Record<string, string> = {};
-	chidren: VmlElement[] = [];
 	wrapType?: string;
 	imageHref?: {
 		id: string,
@@ -16,7 +16,7 @@ export class VmlElement implements OpenXmlElement {
 	}
 }
 
-export function parseVmlElement(elem: Element): VmlElement {
+export function parseVmlElement(elem: Element, parser: DocumentParser): VmlElement {
 	var result = new VmlElement();
 
 	switch (elem.localName) {
@@ -37,7 +37,12 @@ export function parseVmlElement(elem: Element): VmlElement {
 		case "shape":
 			result.tagName = "g"; 
 			break;
-		
+
+		case "textbox":
+			result.tagName = "foreignObject"; 
+			Object.assign(result.attrs, { width: '100%', height: '100%' });
+			break;
+	
 		default:
 			return null;
 	}
@@ -51,7 +56,7 @@ export function parseVmlElement(elem: Element): VmlElement {
 			case "fillcolor": 
 				result.attrs.fill = at.value; 
 				break;
-			
+
 			case "from":
 				const [x1, y1] = parsePoint(at.value);
 				Object.assign(result.attrs, { x1, y1 });
@@ -83,9 +88,13 @@ export function parseVmlElement(elem: Element): VmlElement {
 				}
 				break;
 
+			case "txbxContent": 
+				result.children.push(...parser.parseBodyElements(el));
+				break;
+
 			default:
-				const child = parseVmlElement(el);
-				child && result.chidren.push(child);
+				const child = parseVmlElement(el, parser);
+				child && result.children.push(child);
 				break;
 		}
 	}

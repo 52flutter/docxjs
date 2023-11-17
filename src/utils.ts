@@ -27,10 +27,11 @@ export function keyBy<T = any>(array: T[], by: (x: T) => any): Record<any, T> {
     }, {});
 }
 
-export function blobToBase64(blob: Blob): any {
-	return new Promise((resolve, _) => {
+export function blobToBase64(blob: Blob): Promise<string> {
+	return new Promise((resolve, reject) => {
 		const reader = new FileReader();
-		reader.onloadend = () => resolve(reader.result);
+		reader.onloadend = () => resolve(reader.result as string);
+		reader.onerror = () => reject();
 		reader.readAsDataURL(blob);
 	});
 }
@@ -40,7 +41,7 @@ export function isObject(item) {
 }
 
 export function isString(item: unknown): item is string {
-    return item && typeof item === 'string' || item instanceof String;
+    return typeof item === 'string' || item instanceof String;
 }
 
 export function mergeDeep(target, ...sources) {

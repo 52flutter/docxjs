@@ -18,7 +18,6 @@ import { WmlBaseNote, WmlFootnote } from './notes/elements';
 import { ThemePart } from './theme/theme-part';
 import { BaseHeaderFooterPart } from './header-footer/parts';
 import { Part } from './common/part';
-import mathMLCSS from "./mathml.scss";
 import { VmlElement } from './vml/vml';
 
 const ns = {
@@ -74,11 +73,6 @@ export class HtmlRenderer {
 
 		appendComment(styleContainer, "docxjs library predefined styles");
 		styleContainer.appendChild(this.renderDefaultStyle());
-
-		if (!window.MathMLElement && options.useMathMLPolyfill) {
-			appendComment(styleContainer, "docxjs mathml polyfill styles");
-			styleContainer.appendChild(createStyleElement(mathMLCSS));
-		} 
 
 		if (document.themePart) {
 			appendComment(styleContainer, "docxjs document theme values");
@@ -352,7 +346,19 @@ export class HtmlRenderer {
 				this.processElement(part.rootElement);
 				this.usedHederFooterParts.push(part.path);
 			}
-			this.renderElements([part.rootElement], into);
+			const [el] = this.renderElements([part.rootElement], into) as HTMLElement[];
+
+			if (props?.pageMargins) {
+				if (part.rootElement.type === DomType.Header) {
+					el.style.marginTop = `calc(${props.pageMargins.header} - ${props.pageMargins.top})`;
+					el.style.minHeight = `calc(${props.pageMargins.top} - ${props.pageMargins.header})`;
+				}
+				else if (part.rootElement.type === DomType.Footer) {
+					el.style.marginBottom = `calc(${props.pageMargins.footer} - ${props.pageMargins.bottom})`;
+					el.style.minHeight = `calc(${props.pageMargins.bottom} - ${props.pageMargins.footer})`;
+				}
+			}
+
 			this.currentPart = null;
 		}
 	}
@@ -447,9 +453,10 @@ export class HtmlRenderer {
 		var styleText = `
 .${c}-wrapper { background: gray; padding: 30px; padding-bottom: 0px; display: flex; flex-flow: column; align-items: center; } 
 .${c}-wrapper>section.${c} { background: white; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); margin-bottom: 30px; }
-.${c} { color: black; }
+.${c} { color: black; hyphens: auto; text-underline-position: from-font; }
 section.${c} { box-sizing: border-box; display: flex; flex-flow: column nowrap; position: relative; overflow: hidden; }
-section.${c}>article { margin-bottom: auto; }
+section.${c}>article { margin-bottom: auto; z-index: 1; }
+section.${c}>footer { z-index: 1; }
 .${c} table { border-collapse: collapse; }
 .${c} table td, .${c} table th { vertical-align: top; }
 .${c} p { margin: 0pt; min-height: 1em; }
@@ -527,7 +534,7 @@ section.${c}>article { margin-bottom: auto; }
 
 	renderNumbering(numberings: IDomNumbering[], styleContainer: HTMLElement) {
 		var styleText = "";
-		var rootCounters = [];
+		var resetCounters = [];
 
 		for (var num of numberings) {
 			var selector = `p.${this.numberingClass(num.id, num.level)}`;
@@ -549,15 +556,14 @@ section.${c}>article { margin-bottom: auto; }
 			}
 			else if (num.levelText) {
 				let counter = this.numberingCounter(num.id, num.level);
-
+				const counterReset = counter + " " + (num.start - 1);
 				if (num.level > 0) {
 					styleText += this.styleToString(`p.${this.numberingClass(num.id, num.level - 1)}`, {
-						"counter-reset": counter
+						"counter-reset": counterReset
 					});
 				}
-				else {
-					rootCounters.push(counter);
-				}
+				// reset all level counters with start value
+				resetCounters.push(counterReset);
 
 				styleText += this.styleToString(`${selector}:before`, {
 					"content": this.levelTextToContent(num.levelText, num.suff, num.id, this.numFormatToCssValue(num.format)),
@@ -577,9 +583,9 @@ section.${c}>article { margin-bottom: auto; }
 			});
 		}
 
-		if (rootCounters.length > 0) {
+		if (resetCounters.length > 0) {
 			styleText += this.styleToString(this.rootSelector, {
-				"counter-reset": rootCounters.join(" ")
+				"counter-reset": resetCounters.join(" ")
 			});
 		}
 
@@ -713,36 +719,63 @@ section.${c}>article { margin-bottom: auto; }
 			case DomType.MmlFraction:
 				return this.renderContainerNS(elem, ns.mathML, "mfrac");
 
+			case DomType.MmlBase:
+				return this.renderContainerNS(elem, ns.mathML, 
+					elem.parent.type == DomType.MmlMatrixRow ? "mtd" : "mrow");
+
 			case DomType.MmlNumerator:
 			case DomType.MmlDenominator:
+			case DomType.MmlFunction:
+			case DomType.MmlLimit:
+			case DomType.MmlBox:
 				return this.renderContainerNS(elem, ns.mathML, "mrow");
 
+			case DomType.MmlGroupChar:
+				return this.renderMmlGroupChar(elem);
+
+			case DomType.MmlLimitLower:
+				return this.renderContainerNS(elem, ns.mathML, "munder");
+
+			case DomType.MmlMatrix:
+				return this.renderContainerNS(elem, ns.mathML, "mtable");
+
+			case DomType.MmlMatrixRow:
+				return this.renderContainerNS(elem, ns.mathML, "mtr");
+	
 			case DomType.MmlRadical:
 				return this.renderMmlRadical(elem);
-
-			case DomType.MmlDegree:
-				return this.renderContainerNS(elem, ns.mathML, "mn");
 
 			case DomType.MmlSuperscript:
 				return this.renderContainerNS(elem, ns.mathML, "msup");
 
 			case DomType.MmlSubscript:
 				return this.renderContainerNS(elem, ns.mathML, "msub");
-	
-			case DomType.MmlBase:
-				return this.renderContainerNS(elem, ns.mathML, "mrow");
 
+			case DomType.MmlDegree:
 			case DomType.MmlSuperArgument:
-				return this.renderContainerNS(elem, ns.mathML, "mn");
-
 			case DomType.MmlSubArgument:
 				return this.renderContainerNS(elem, ns.mathML, "mn");
 
+			case DomType.MmlFunctionName:
+				return this.renderContainerNS(elem, ns.mathML, "ms");
+	
 			case DomType.MmlDelimiter:
 				return this.renderMmlDelimiter(elem);
 
+			case DomType.MmlRun:
+				return this.renderMmlRun(elem);
+
 			case DomType.MmlNary:
 				return this.renderMmlNary(elem);
+
+			case DomType.MmlPreSubSuper:
+				return this.renderMmlPreSubSuper(elem);
+
+			case DomType.MmlBar:
+				return this.renderMmlBar(elem);
+	
+			case DomType.MmlEquationArray:
+				return this.renderMllList(elem);
 
 			case DomType.Inserted:
 				return this.renderInserted(elem);
@@ -1044,24 +1077,38 @@ section.${c}>article { margin-bottom: auto; }
 
 		container.setAttribute("style", elem.cssStyleText);
 
-		const result = createSvgElement(elem.tagName as any);
-		Object.entries(elem.attrs).forEach(([k, v]) => result.setAttribute(k, v));
+		const result = this.renderVmlChildElement(elem);
 
 		if (elem.imageHref?.id) {
 			this.document?.loadDocumentImage(elem.imageHref.id, this.currentPart)
 				.then(x => result.setAttribute("href", x));
 		}
-		
+
 		container.appendChild(result);
 
-		setTimeout(() => {
+		requestAnimationFrame(() => {
 			const bb = (container.firstElementChild as any).getBBox();
 
 			container.setAttribute("width", `${Math.ceil(bb.x +  bb.width)}`);
 			container.setAttribute("height", `${Math.ceil(bb.y + bb.height)}`);
-		}, 0);
+		});
 
 		return container;
+	}
+
+	renderVmlChildElement(elem: VmlElement): any {
+		const result = createSvgElement(elem.tagName as any);
+		Object.entries(elem.attrs).forEach(([k, v]) => result.setAttribute(k, v));
+
+		for (let child of elem.children) {
+			if (child.type == DomType.VmlElement) {
+				result.appendChild(this.renderVmlChildElement(child as VmlElement));
+			} else {
+				result.appendChild(...asArray(this.renderElement(child as any)));
+			}
+		}
+
+		return result;
 	}
 
 	renderMmlRadical(elem: OpenXmlElement): HTMLElement {
@@ -1094,18 +1141,16 @@ section.${c}>article { margin-bottom: auto; }
 		const supElem = sup ? createElementNS(ns.mathML, "mo", null, asArray(this.renderElement(sup))) : null;
 		const subElem = sub ? createElementNS(ns.mathML, "mo", null, asArray(this.renderElement(sub))) : null;
 
-		if (elem.props?.char) {
-			const charElem = createElementNS(ns.mathML, "mo", null, [elem.props.char]);
+		const charElem = createElementNS(ns.mathML, "mo", null, [elem.props?.char ?? '\u222B']);
 
-			if (supElem || subElem) {
-				children.push(createElementNS(ns.mathML, "munderover", null, [charElem, subElem, supElem]));
-			} else if(supElem) {
-				children.push(createElementNS(ns.mathML, "mover", null, [charElem, supElem]));
-			} else if(subElem) {
-				children.push(createElementNS(ns.mathML, "munder", null, [charElem, subElem]));
-			} else {
-				children.push(charElem);
-			}
+		if (supElem || subElem) {
+			children.push(createElementNS(ns.mathML, "munderover", null, [charElem, subElem, supElem]));
+		} else if(supElem) {
+			children.push(createElementNS(ns.mathML, "mover", null, [charElem, supElem]));
+		} else if(subElem) {
+			children.push(createElementNS(ns.mathML, "munder", null, [charElem, subElem]));
+		} else {
+			children.push(charElem);
 		}
 
 		children.push(...this.renderElements(grouped[DomType.MmlBase].children));
@@ -1113,8 +1158,80 @@ section.${c}>article { margin-bottom: auto; }
 		return createElementNS(ns.mathML, "mrow", null, children);
 	}
 
+	renderMmlPreSubSuper(elem: OpenXmlElement) {
+		const children = [];
+		const grouped = keyBy(elem.children, x => x.type);
+
+		const sup = grouped[DomType.MmlSuperArgument];
+		const sub = grouped[DomType.MmlSubArgument];
+		const supElem = sup ? createElementNS(ns.mathML, "mo", null, asArray(this.renderElement(sup))) : null;
+		const subElem = sub ? createElementNS(ns.mathML, "mo", null, asArray(this.renderElement(sub))) : null;
+		const stubElem = createElementNS(ns.mathML, "mo", null);
+
+		children.push(createElementNS(ns.mathML, "msubsup", null, [stubElem, subElem, supElem]));
+		children.push(...this.renderElements(grouped[DomType.MmlBase].children));
+
+		return createElementNS(ns.mathML, "mrow", null, children);
+	}
+
+	renderMmlGroupChar(elem: OpenXmlElement) {
+		const tagName = elem.props.verticalJustification === "bot" ? "mover" : "munder";
+		const result = this.renderContainerNS(elem, ns.mathML, tagName);
+
+		if (elem.props.char) {
+			result.appendChild(createElementNS(ns.mathML, "mo", null, [elem.props.char]));
+		}
+
+		return result;
+	}
+
+	renderMmlBar(elem: OpenXmlElement) {
+		const result = this.renderContainerNS(elem, ns.mathML, "mrow");
+
+		switch(elem.props.position) {
+			case "top": result.style.textDecoration = "overline"; break
+			case "bottom": result.style.textDecoration = "underline"; break
+		}
+
+		return result;
+	}
+
+	renderMmlRun(elem: OpenXmlElement) {
+		const result = createElementNS(ns.mathML, "ms");
+
+		this.renderClass(elem, result);
+		this.renderStyleValues(elem.cssStyle, result);
+		this.renderChildren(elem, result);
+
+		return result;
+	}
+
+	renderMllList(elem: OpenXmlElement) {
+		const result = createElementNS(ns.mathML, "mtable");
+
+		this.renderClass(elem, result);
+		this.renderStyleValues(elem.cssStyle, result);
+
+		const childern = this.renderChildren(elem);
+
+		for (let child of this.renderChildren(elem)) {
+			result.appendChild(createElementNS(ns.mathML, "mtr", null, [
+				createElementNS(ns.mathML, "mtd", null, [child])
+			]));
+		}
+
+		return result;
+	}
+
+
 	renderStyleValues(style: Record<string, string>, ouput: HTMLElement) {
-		Object.assign(ouput.style, style);
+		for (let k in style) {
+			if (k.startsWith("$")) {
+				ouput.setAttribute(k.slice(1), style[k]);
+			} else {
+				ouput.style[k] = style[k];
+			}
+		}
 	}
 
 	renderClass(input: OpenXmlElement, ouput: HTMLElement) {
@@ -1141,6 +1258,9 @@ section.${c}>article { margin-bottom: auto; }
 		let result = `${selectors} {\r\n`;
 
 		for (const key in values) {
+			if (key.startsWith('$'))
+				continue;
+			
 			result += `  ${key}: ${values[key]};\r\n`;
 		}
 
@@ -1170,16 +1290,48 @@ section.${c}>article { margin-bottom: auto; }
 
 	numFormatToCssValue(format: string) {
 		var mapping = {
-			"none": "none",
-			"bullet": "disc",
-			"decimal": "decimal",
-			"lowerLetter": "lower-alpha",
-			"upperLetter": "upper-alpha",
-			"lowerRoman": "lower-roman",
-			"upperRoman": "upper-roman",
+			none: "none",
+			bullet: "disc",
+			decimal: "decimal",
+			lowerLetter: "lower-alpha",
+			upperLetter: "upper-alpha",
+			lowerRoman: "lower-roman",
+			upperRoman: "upper-roman",
+			decimalZero: "decimal-leading-zero", // 01,02,03,...
+			// ordinal: "", // 1st, 2nd, 3rd,...
+			// ordinalText: "", //First, Second, Third, ...
+			// cardinalText: "", //One,Two Three,...
+			// numberInDash: "", //-1-,-2-,-3-, ...
+			// hex: "upper-hexadecimal",
+			aiueo: "katakana",
+			aiueoFullWidth: "katakana",
+			chineseCounting: "simp-chinese-informal",
+			chineseCountingThousand: "simp-chinese-informal",
+			chineseLegalSimplified: "simp-chinese-formal", // 中文大写
+			chosung: "hangul-consonant",
+			ideographDigital: "cjk-ideographic",
+			ideographTraditional: "cjk-heavenly-stem", // 十天干
+			ideographLegalTraditional: "trad-chinese-formal",
+			ideographZodiac: "cjk-earthly-branch", // 十二地支
+			iroha: "katakana-iroha",
+			irohaFullWidth: "katakana-iroha",
+			japaneseCounting: "japanese-informal",
+			japaneseDigitalTenThousand: "cjk-decimal",
+			japaneseLegal: "japanese-formal",
+			thaiNumbers: "thai",
+			koreanCounting: "korean-hangul-formal",
+			koreanDigital: "korean-hangul-formal",
+			koreanDigital2: "korean-hanja-informal",
+			hebrew1: "hebrew",
+			hebrew2: "hebrew",
+			hindiNumbers: "devanagari",
+			ganada: "hangul",
+			taiwaneseCounting: "cjk-ideographic",
+			taiwaneseCountingThousand: "cjk-ideographic",
+			taiwaneseDigital:  "cjk-decimal",
 		};
 
-		return mapping[format] || format;
+		return mapping[format] ?? format;
 	}
 
 	refreshTabStops() {

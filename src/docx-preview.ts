@@ -18,7 +18,6 @@ export interface Options {
 	renderEndnotes: boolean;
     ignoreLastRenderedPageBreak: boolean;
 	useBase64URL: boolean;
-	useMathMLPolyfill: boolean;
 	renderChanges: boolean;
 }
 
@@ -38,23 +37,22 @@ export const defaultOptions: Options = {
     renderFootnotes: true,
 	renderEndnotes: true,
 	useBase64URL: false,
-	useMathMLPolyfill: false,
 	renderChanges: false
 }
 
-export function praseAsync(data: Blob | any, userOptions: Partial<Options> = null): Promise<any>  {
+export function praseAsync(data: Blob | any, userOptions?: Partial<Options>): Promise<any>  {
     const ops = { ...defaultOptions, ...userOptions };
     return WordDocument.load(data, new DocumentParser(ops), ops);
 }
 
-export function renderAsync(data: Blob | any, bodyContainer: HTMLElement, styleContainer: HTMLElement = null, userOptions: Partial<Options> = null): Promise<any> {
+export function renderDocument(document: any, bodyContainer: HTMLElement, styleContainer?: HTMLElement, userOptions?: Partial<Options>) {
     const ops = { ...defaultOptions, ...userOptions };
     const renderer = new HtmlRenderer(window.document);
+	renderer.render(document, bodyContainer, styleContainer, ops);
+}
 
-    return WordDocument
-        .load(data, new DocumentParser(ops), ops)
-        .then(doc => {
-            renderer.render(doc, bodyContainer, styleContainer, ops);
-            return doc;
-        });
+export async function renderAsync(data: Blob | any, bodyContainer: HTMLElement, styleContainer?: HTMLElement, userOptions?: Partial<Options>): Promise<any> {
+	const doc = await praseAsync(data, userOptions);
+	renderDocument(doc, bodyContainer, styleContainer, userOptions);
+    return doc;
 }

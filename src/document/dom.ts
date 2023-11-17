@@ -28,6 +28,8 @@ export enum DomType {
 	MmlMath = "mmlMath",
 	MmlMathParagraph = "mmlMathParagraph",
 	MmlFraction = "mmlFraction",
+	MmlFunction = "mmlFunction",
+	MmlFunctionName = "mmlFunctionName",
 	MmlNumerator = "mmlNumerator",
 	MmlDenominator = "mmlDenominator",
 	MmlRadical = "mmlRadical",
@@ -35,10 +37,20 @@ export enum DomType {
 	MmlDegree = "mmlDegree",
 	MmlSuperscript = "mmlSuperscript",
 	MmlSubscript = "mmlSubscript",
+	MmlPreSubSuper = "mmlPreSubSuper",
 	MmlSubArgument = "mmlSubArgument",
 	MmlSuperArgument = "mmlSuperArgument",
 	MmlNary = "mmlNary",
 	MmlDelimiter = "mmlDelimiter",
+	MmlRun = "mmlRun",
+	MmlEquationArray = "mmlEquationArray",
+	MmlLimit = "mmlLimit",
+	MmlLimitLower = "mmlLimitLower",
+	MmlMatrix = "mmlMatrix",
+	MmlMatrixRow = "mmlMatrixRow",
+	MmlBox = "mmlBox",
+	MmlBar = "mmlBar",
+	MmlGroupChar = "mmlGroupChar",
 	VmlElement = "vmlElement",
 	Inserted = "inserted",
 	Deleted = "deleted",
@@ -53,6 +65,18 @@ export interface OpenXmlElement {
     
 	styleName?: string; //style name
 	className?: string; //class mods
+
+    parent?: OpenXmlElement;
+}
+
+export abstract class OpenXmlElementBase implements OpenXmlElement {
+    type: DomType;
+    children?: OpenXmlElement[] = [];
+    cssStyle?: Record<string, string> = {};
+    props?: Record<string, any>;
+
+    className?: string;
+    styleName?: string;
 
     parent?: OpenXmlElement;
 }
@@ -107,6 +131,7 @@ export interface WmlTableColumn {
 export interface IDomNumbering {
     id: string;
     level: number;
+    start: number;
     pStyleName: string;
     pStyle: Record<string, string>;
     rStyle: Record<string, string>;

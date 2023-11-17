@@ -5,7 +5,7 @@ import {
 } from './document/dom';
 import { DocumentElement } from './document/document';
 import { WmlParagraph, parseParagraphProperties, parseParagraphProperty } from './document/paragraph';
-import { parseSectionProperties } from './document/section';
+import { parseSectionProperties, SectionProperties } from './document/section';
 import xml from './parser/xml-parser';
 import { parseRunProperties, WmlRun } from './document/run';
 import { parseBookmarkEnd, parseBookmarkStart } from './document/bookmarks';
@@ -27,6 +27,8 @@ const mmlTagMap = {
 	"oMath": DomType.MmlMath,
 	"oMathPara": DomType.MmlMathParagraph,
 	"f": DomType.MmlFraction,
+	"func": DomType.MmlFunction,
+	"fName": DomType.MmlFunctionName,
 	"num": DomType.MmlNumerator,
 	"den": DomType.MmlDenominator,
 	"rad": DomType.MmlRadical,
@@ -34,10 +36,19 @@ const mmlTagMap = {
 	"e": DomType.MmlBase,
 	"sSup": DomType.MmlSuperscript,
 	"sSub": DomType.MmlSubscript,
+	"sPre": DomType.MmlPreSubSuper,
 	"sup": DomType.MmlSuperArgument,
 	"sub": DomType.MmlSubArgument,
 	"d": DomType.MmlDelimiter,
-	"nary": DomType.MmlNary
+	"nary": DomType.MmlNary,
+	"eqArr": DomType.MmlEquationArray,
+	"lim": DomType.MmlLimit,
+	"limLow": DomType.MmlLimitLower,
+	"m": DomType.MmlMatrix,
+	"mr": DomType.MmlMatrixRow,
+	"box": DomType.MmlBox,
+	"bar": DomType.MmlBar,
+	"groupChr": DomType.MmlGroupChar
 }
 
 export interface DocumentParserOptions {
@@ -78,7 +89,7 @@ export class DocumentParser {
 		return {
 			type: DomType.Document,
 			children: this.parseBodyElements(xbody),
-			props: sectPr ? parseSectionProperties(sectPr, xml) : null,
+			props: sectPr ? parseSectionProperties(sectPr, xml) : {} as SectionProperties,
 			cssStyle: background ? this.parseBackground(background) : {},
 		};
 	}
@@ -392,6 +403,7 @@ export class DocumentParser {
 		var result: IDomNumbering = {
 			id: id,
 			level: xml.intAttr(node, "ilvl"),
+			start: 1,
 			pStyleName: undefined,
 			pStyle: {},
 			rStyle: {},
@@ -400,6 +412,10 @@ export class DocumentParser {
 
 		xmlUtil.foreach(node, n => {
 			switch (n.localName) {
+				case "start":
+					result.start = xml.intAttr(n, "val");
+					break;
+
 				case "pPr":
 					this.parseDefaultProperties(n, result.pStyle);
 					break;
@@ -681,7 +697,9 @@ export class DocumentParser {
 			if (childType) {
 				result.children.push(this.parseMathElement(el));
 			} else if (el.localName == "r") {
-				result.children.push(this.parseRun(el));
+				var run = this.parseRun(el);
+				run.type = DomType.MmlRun;
+				result.children.push(run);
 			} else if (el.localName == propsTag) {
 				result.props = this.parseMathProperies(el);
 			}
@@ -696,6 +714,8 @@ export class DocumentParser {
 		for (const el of xml.elements(elem)) {
 			switch (el.localName) {
 				case "chr": result.char = xml.attr(el, "val"); break;
+				case "vertJc": result.verticalJustification = xml.attr(el, "val"); break;
+				case "pos": result.position = xml.attr(el, "val"); break;
 				case "degHide": result.hideDegree = xml.boolAttr(el, "val"); break;
 				case "begChr": result.beginChar = xml.attr(el, "val"); break;
 				case "endChr": result.endChar = xml.attr(el, "val"); break;
@@ -728,7 +748,7 @@ export class DocumentParser {
 		const result = { type: DomType.VmlPicture, children: [] };
 
 		for (const el of xml.elements(elem)) {
-			const child = parseVmlElement(el);
+			const child = parseVmlElement(el, this);
 			child && result.children.push(child);
 		}
 
@@ -1217,6 +1237,14 @@ export class DocumentParser {
 						style["overflow-wrap"] = "break-word";
 					break;
 
+				case "suppressAutoHyphens":
+					style["hyphens"] = xml.boolAttr(c, "val", true) ? "none" : "auto";
+					break;
+
+				case "lang":
+					style["$lang"] = xml.attr(c, "val");
+					break;
+
 				case "bCs":
 				case "iCs":
 				case "szCs":
@@ -1230,7 +1258,6 @@ export class DocumentParser {
 				case "suppressLineNumbers": //TODO - maybe ignore
 				case "keepLines": //TODO - maybe ignore
 				case "keepNext": //TODO - maybe ignore
-				case "lang":
 				case "widowControl": //TODO - maybe ignore 
 				case "bidi": //TODO - maybe ignore
 				case "rtl": //TODO - maybe ignore
@@ -1263,16 +1290,16 @@ export class DocumentParser {
 			case "dashLongHeavy":
 			case "dotDash":
 			case "dotDotDash":
-				style["text-decoration-style"] = "dashed";
+				style["text-decoration"] = "underline dashed";
 				break;
 
 			case "dotted":
 			case "dottedHeavy":
-				style["text-decoration-style"] = "dotted";
+				style["text-decoration"] = "underline dotted";
 				break;
 
 			case "double":
-				style["text-decoration-style"] = "double";
+				style["text-decoration"] = "underline double";
 				break;
 
 			case "single":
@@ -1283,7 +1310,7 @@ export class DocumentParser {
 			case "wave":
 			case "wavyDouble":
 			case "wavyHeavy":
-				style["text-decoration-style"] = "wavy";
+				style["text-decoration"] = "underline wavy";
 				break;
 
 			case "words":
